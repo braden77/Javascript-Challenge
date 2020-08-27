@@ -39,12 +39,33 @@ function runEnter() {
     // Get the value property of the input element
     var inputValue = inputElement.property("value");
   
+    // Console.log the inputValue and table data 
     console.log(inputValue);
     console.log(tableData);
   
+    // filter the table by input value
     var filteredData = tableData.filter(ufo => ufo.datetime === inputValue);
   
+    // console.log the filtered result
     console.log(filteredData);
-  
 
-  };
+
+    // delete the table shown in the html
+    var table = document.getElementById("ufo-table");
+
+    while (table.rows.length > 1) {
+        table.deleteRow(1);
+    };
+
+    // show the table for filtered rows
+    filteredData.forEach((ufoReport) => {
+        var row = tbody.append("tr");
+        Object.entries(ufoReport).forEach(([key,value]) => {
+            var cell = row.append("td");
+            cell.text(value);
+        });
+    });
+
+
+
+};
